@@ -48,4 +48,3 @@ public class JwtConfig {
         this.secretKey = new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), algorithm);
     }
 }
-
