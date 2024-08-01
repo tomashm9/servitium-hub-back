@@ -2,8 +2,10 @@ package com.thm.gw.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -59,6 +61,11 @@ public abstract class User extends BaseEntity<Long> implements UserDetails {
         this.isCredentialsExpired = false;
         this.isEnabled = true;
         this.roles = new HashSet<>();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles;
     }
 
     @Override
