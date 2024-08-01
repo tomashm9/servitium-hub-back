@@ -54,4 +54,3 @@ public class JwtUtils {
         return now.after(claims.getIssuedAt()) && now.before(claims.getExpiration());
     }
 }
-

@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -35,6 +36,12 @@ public abstract class User extends BaseEntity<Long> implements UserDetails {
     @Column(name = "contact_email", nullable = false)
     private String contactEmail;
 
+    @Column(name = "gender", nullable = false)
+    private String gender;
+
+    @Column(name = "birth_date", nullable = false)
+    private LocalDate birthDate;
+
     @Column(name = "is_enabled", nullable = false)
     private boolean isEnabled;
 
@@ -61,6 +68,13 @@ public abstract class User extends BaseEntity<Long> implements UserDetails {
         this.isCredentialsExpired = false;
         this.isEnabled = true;
         this.roles = new HashSet<>();
+    }
+
+    protected User(String email, String password, Role role) {
+        this();
+        this.email = email;
+        this.password = password;
+        this.roles.add(role);
     }
 
     @Override
