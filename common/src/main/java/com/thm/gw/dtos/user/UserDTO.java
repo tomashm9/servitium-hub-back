@@ -1,5 +1,6 @@
 package com.thm.gw.dtos.user;
 
+import com.thm.gw.enums.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class UserDTO {
     protected final String lastname;
     protected final String phoneNumber;
     protected final String contactEmail;
-    private final String gender;
+    private final Gender gender;
     private final LocalDate birthDate;
     protected final Set<String> roles;
     protected final boolean isEnabled;
@@ -28,7 +29,7 @@ public class UserDTO {
             String lastname,
             String phoneNumber,
             String contactEmail,
-            String gender,
+            Gender gender,
             LocalDate birthDate,
             Set<String> roles,
             boolean isEnabled,

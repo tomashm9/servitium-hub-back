@@ -1,5 +1,6 @@
 package com.thm.gw.dtos.user;
 
+import com.thm.gw.enums.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +17,7 @@ public class ManagerDTO extends UserDTO {
             String lastname,
             String phoneNumber,
             String contactEmail,
-            String gender,
+            Gender gender,
             LocalDate birthDate,
             Set<String> roles,
             boolean isEnabled,

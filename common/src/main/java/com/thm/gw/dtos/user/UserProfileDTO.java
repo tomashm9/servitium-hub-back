@@ -1,5 +1,6 @@
 package com.thm.gw.dtos.user;
 
+import com.thm.gw.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public abstract class UserProfileDTO {
     private final String lastname;
     private final String phoneNumber;
     private final String contactEmail;
-    private final String gender;
+    private final Gender gender;
     private final LocalDate birthDate;
 
 }

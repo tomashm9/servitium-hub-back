@@ -1,5 +1,6 @@
 package com.thm.gw.dtos.user;
 
+import com.thm.gw.enums.Gender;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class ClientProfileDTO extends UserProfileDTO {
             String lastname,
             String phoneNumber,
             String contactEmail,
-            String gender,
+            Gender gender,
             LocalDate birthDate
     ) {
         super(

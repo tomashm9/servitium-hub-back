@@ -1,5 +1,7 @@
 package com.thm.gw.dtos.user;
 
+import com.thm.gw.enums.Gender;
+
 import java.time.LocalDate;
 
 public record UserShortDTO(
@@ -9,6 +11,6 @@ public record UserShortDTO(
         String lastName,
         String phoneNumber,
         String contactEmail,
-        String gender,
+        Gender gender,
         LocalDate birthDate
 ) { }

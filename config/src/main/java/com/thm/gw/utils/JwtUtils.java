@@ -24,7 +24,7 @@ public class JwtUtils {
         return jwtBuilder
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtConfig.getExpireAt()))
+                .setExpiration(new Date(System.currentTimeMillis() + 2 * 60 * 1000 + jwtConfig.getExpireAt()))
                 .compact();
     }
 
