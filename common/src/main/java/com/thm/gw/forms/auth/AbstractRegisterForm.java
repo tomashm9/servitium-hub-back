@@ -1,5 +1,6 @@
 package com.thm.gw.forms.auth;
 
+import com.thm.gw.enums.Gender;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -17,10 +18,10 @@ public abstract class AbstractRegisterForm {
     private String password;
 
     @NotBlank(message = "There must be a firstname")
-    private String firstname;
+    private String firstName;
 
     @NotBlank(message = "There must be lastname")
-    private String lastname;
+    private String lastName;
 
     @NotBlank(message = "There must be a phone number")
     private String phoneNumber;
@@ -29,10 +30,10 @@ public abstract class AbstractRegisterForm {
     @Email(message = "The contact email is not valid")
     private String contactEmail;
 
-    @NotBlank(message = "There must be a gender")
-    private String gender;
+    @NotNull(message = "There must be a gender")
+    private Gender gender;
 
-    @NotBlank(message = "There must be birth date")
+    @NotNull(message = "There must be birth date")
     private LocalDate birthDate;
 
     public abstract String getRoleName();

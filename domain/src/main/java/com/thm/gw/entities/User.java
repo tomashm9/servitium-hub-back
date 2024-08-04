@@ -1,5 +1,6 @@
 package com.thm.gw.entities;
 
+import com.thm.gw.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,7 +38,8 @@ public abstract class User extends BaseEntity<Long> implements UserDetails {
     private String contactEmail;
 
     @Column(name = "gender", nullable = false)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;

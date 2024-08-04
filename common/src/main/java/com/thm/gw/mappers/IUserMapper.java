@@ -92,7 +92,7 @@ public interface IUserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    void updateEntityFromRequest(UserUpdateForm form, @MappingTarget User user);
+    void updateEntityFromForm(UserUpdateForm form, @MappingTarget User user);
 
     /**
      * Map a User entity to a UserDTO.

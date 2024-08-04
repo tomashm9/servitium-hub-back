@@ -1,5 +1,8 @@
 package com.thm.gw.forms.user;
 
+import com.thm.gw.enums.Gender;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -24,7 +27,8 @@ public class UserUpdateForm {
     private final String contactEmail;
 
     @NotBlank(message = "There must be a gender")
-    private final String gender;
+    @Enumerated(EnumType.STRING)
+    private final Gender gender;
 
     @NotBlank(message = "There must be birth date")
     private final LocalDate birthDate;
