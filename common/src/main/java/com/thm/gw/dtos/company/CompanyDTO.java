@@ -1,13 +1,15 @@
 package com.thm.gw.dtos.company;
 
-import java.time.LocalDate;
+import com.thm.gw.dtos.companylocation.CompanyLocationDTO;
+
+import java.util.List;
 
 public record CompanyDTO(
         Long id,
         String name,
-        String websiteUrl,
-        LocalDate establishmentDate,
+        String description,
         String contactName,
         String contactPhoneNumber,
-        boolean isActive
+        String websiteUrl,
+        List<CompanyLocationDTO> locations
 ) { }

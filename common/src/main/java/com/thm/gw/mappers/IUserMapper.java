@@ -73,89 +73,38 @@ public interface IUserMapper {
         throw new InvalidUserTypeException();
     }
 
-    /**
-     * Map a set of roles to a set of role names.
-     * @param roles the set of roles to map
-     * @return the set of role names
-     */
     default Set<String> map(Set<Role> roles) {
         return roles.stream()
                 .map(Role::getName)
                 .collect(Collectors.toSet());
     }
 
-    /**
-     * Update a user entity with the data from a UserUpdateRequest.
-     * @param form the request to update the user with
-     * @param user the user to update
-     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     void updateEntityFromForm(UserUpdateForm form, @MappingTarget User user);
 
-    /**
-     * Map a User entity to a UserDTO.
-     * @param user the user to map
-     * @return the user dto
-     */
     @Mapping(source = "enabled", target = "isEnabled")
     @Mapping(source = "locked", target = "isLocked")
     UserDTO fromUser(User user);
 
-    /**
-     * Map a Owner entity to a OwnerDTO.
-     * @param owner the advertiser to map
-     * @return the owner dto
-     */
     @Mapping(source = "enabled", target = "isEnabled")
     @Mapping(source = "locked", target = "isLocked")
     OwnerDTO fromOwner(Owner owner);
 
-    /**
-     * Map a Manager entity to a ManagerDTO.
-     * @param manager the manager to map
-     * @return the manager dto
-     */
     @Mapping(source = "enabled", target = "isEnabled")
     @Mapping(source = "locked", target = "isLocked")
     ManagerDTO fromManager(Manager manager);
 
-    /**
-     * Map a Client entity to a ClientDTO.
-     * @param client the manager to map
-     * @return the client dto
-     */
     @Mapping(source = "enabled", target = "isEnabled")
     @Mapping(source = "locked", target = "isLocked")
     ClientDTO fromClient(Client client);
 
-    /**
-     * Map an Owner entity to an OwnerProfileDTO.
-     * @param owner the owner to map
-     * @return the owner profile dto
-     */
     OwnerProfileDTO fromOwnerProfile(Owner owner);
 
-    /**
-     * Map a Manager entity to a ManagerProfileDTO.
-     * @param manager the manager to map
-     * @return the owner profile dto
-     */
     ManagerProfileDTO fromManagerProfile(Manager manager);
 
-    /**
-     * Map a Client entity to a ClientProfileDTO.
-     * @param client the client to map
-     * @return the client profile dto
-     */
     ClientProfileDTO fromClientProfile(Client client);
 
-    /**
-     * Map a User entity to a UserUpdatePasswordDTO.
-     * @param user the user to map
-     * @param message the message displayed to the user
-     * @return the user password update dto
-     */
     UserUpdatePasswordDTO fromUserToUserUpdatedPassword(User user, String message);
 }

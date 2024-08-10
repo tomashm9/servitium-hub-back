@@ -40,15 +40,44 @@ public class Company extends BaseEntity<Long> {
     private boolean isActive;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Owner> owners;
+    private Set<OpeningHours> openingHours = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CompanyLocation> companyLocations;
+    private Set<Owner> owners = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Service> services;
+    private Set<CompanyLocation> companyLocations = new HashSet<>();
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Service> services = new HashSet<>();
+
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CompanyImage> images = new HashSet<>();
 
     public Company() {
         this.owners = new HashSet<>();
+    }
+
+    public Company(
+            String name,
+            String description,
+            String websiteUrl,
+            LocalDate establishmentDate,
+            String contactName,
+            String contactPhoneNumber,
+            boolean isActive
+    ) {
+        this();
+        this.name = name;
+        this.description = description;
+        this.websiteUrl = websiteUrl;
+        this.establishmentDate = establishmentDate;
+        this.contactName = contactName;
+        this.contactPhoneNumber = contactPhoneNumber;
+        this.isActive = isActive;
+    }
+
+    public Company(String name) {
+        this.name = name;
     }
 }

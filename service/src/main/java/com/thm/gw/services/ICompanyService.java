@@ -1,11 +1,21 @@
 package com.thm.gw.services;
 
 import com.thm.gw.dtos.company.CompanyDTO;
+import com.thm.gw.dtos.company.PagedCompaniesDTO;
+import com.thm.gw.dtos.companylocation.CompanyLocationDTO;
 import com.thm.gw.forms.company.CompanyForm;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ICompanyService {
+
+    /**
+     * Retrieves a list of companies based on provided filters.
+     * @param filters Map containing filter key-value pairs.
+     * @return a List of CompanyDTO objects that match the filters.
+     */
+    PagedCompaniesDTO getCompaniesByFilters(Map<String, String> filters, int page);
 
     /**
      * Retrieves a list of all companies.
@@ -19,6 +29,13 @@ public interface ICompanyService {
      * @return the {@link CompanyDTO} corresponding to the provided identifier, or null if not found.
      */
     CompanyDTO getCompanyById(Long id);
+
+    /**
+     * Retrieves a list of locations for a specific company.
+     * @param companyId The ID of the company.
+     * @return List of locations for the company.
+     */
+    List<CompanyLocationDTO> getCompanyLocations(Long companyId);
 
     /**
      * Creates a new company in the system.
