@@ -12,4 +12,7 @@ public class Constants {
     public static final String OWNER_ROLE = "OWNER";
     public static final String MANAGER_ROLE = "MANAGER";
     public static final String CLIENT_ROLE = "CLIENT";
+
+    // PAGINATION
+    public static final int PAGE_SIZE = 10;
 }

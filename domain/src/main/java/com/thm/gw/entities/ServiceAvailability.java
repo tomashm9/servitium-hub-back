@@ -34,4 +34,8 @@ public class ServiceAvailability extends BaseEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
     private Service service;
+
+    public void setId(Long id) {
+        super.setId(id);
+    }
 }

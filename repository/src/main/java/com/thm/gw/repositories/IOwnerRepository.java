@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface IOwnerRepository extends JpaRepository<Owner, Long> {
@@ -17,4 +18,10 @@ public interface IOwnerRepository extends JpaRepository<Owner, Long> {
 
     @Query("SELECT o.id FROM Owner o WHERE o.company.id = :companyId")
     List<Long> findAllOwnersIdsByCompany(Long companyId);
+
+    @Query("SELECT o FROM Owner o " +
+            "WHERE o.company.id = :companyId " +
+            "AND o.id = :ownerId " +
+            "AND o.isActive = true")
+    Optional<Owner> findByCompanyAndOwnerIdAndIsActive(Long companyId, Long ownerId);
 }

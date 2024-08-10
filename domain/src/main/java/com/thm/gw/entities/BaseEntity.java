@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @ToString
 @MappedSuperclass
 @Getter
+@Setter
 public class BaseEntity<T extends Serializable> {
 
     @Id
