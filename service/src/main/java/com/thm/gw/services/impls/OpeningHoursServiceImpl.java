@@ -1,13 +1,13 @@
 package com.thm.gw.services.impls;
 
 import com.thm.gw.dtos.openinghour.OpeningHoursDTO;
-import com.thm.gw.entities.Company;
+import com.thm.gw.entities.CompanyLocation;
 import com.thm.gw.entities.OpeningHours;
 import com.thm.gw.exceptions.Service.ServiceNotFoundException;
 import com.thm.gw.forms.openinghour.OpeningHoursForm;
 import com.thm.gw.mappers.IOpeningHoursMapper;
+import com.thm.gw.repositories.ICompanyLocationRepository;
 import com.thm.gw.repositories.IOpeningHoursRepository;
-import com.thm.gw.repositories.ICompanyRepository;
 import com.thm.gw.services.IOpeningHoursService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 public class OpeningHoursServiceImpl implements IOpeningHoursService {
 
     private final IOpeningHoursRepository openingHoursRepository;
-    private final ICompanyRepository companyRepository;
+    private final ICompanyLocationRepository companyLocationRepository;
     private final IOpeningHoursMapper openingHoursMapper;
 
     @Override
-    public List<OpeningHoursDTO> getAllByCompanyId(Long companyId) {
-        return openingHoursRepository.findByCompanyId(companyId).stream()
+    public List<OpeningHoursDTO> getAllByCompanyLocationId(Long companyLocationId) {
+        return openingHoursRepository.findByCompanyLocationId(companyLocationId).stream()
                 .map(openingHoursMapper::fromEntity)
                 .collect(Collectors.toList());
     }
@@ -34,11 +34,11 @@ public class OpeningHoursServiceImpl implements IOpeningHoursService {
     @Override
     @Transactional
     public OpeningHoursDTO addOpeningHours(OpeningHoursForm form) {
-        Company company = companyRepository.findById(form.companyId())
-                .orElseThrow(ServiceNotFoundException::new);
+        CompanyLocation companyLocation = companyLocationRepository.findById(form.companyLocationId())
+                .orElseThrow(() -> new ServiceNotFoundException("CompanyLocation not found"));
 
         OpeningHours openingHours = openingHoursMapper.toEntity(form);
-        openingHours.setCompany(company);
+        openingHours.setCompanyLocation(companyLocation);
 
         return openingHoursMapper.fromEntity(openingHoursRepository.save(openingHours));
     }

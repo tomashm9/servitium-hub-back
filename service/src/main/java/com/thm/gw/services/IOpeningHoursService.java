@@ -8,11 +8,11 @@ import java.util.List;
 public interface IOpeningHoursService {
 
     /**
-     * Retrieves a list of all opening hours for a specific company.
-     * @param companyId The unique identifier of the company.
-     * @return A list of OpeningHoursDTO objects representing the opening hours of the specified company.
+     * Retrieves a list of all opening hours for a specific company location.
+     * @param companyLocationId The unique identifier of the company location.
+     * @return A list of OpeningHoursDTO objects representing the opening hours of the specified company location.
      */
-    List<OpeningHoursDTO> getAllByCompanyId(Long companyId);
+    List<OpeningHoursDTO> getAllByCompanyLocationId(Long companyLocationId);
 
     /**
      * Adds new opening hours for a company.

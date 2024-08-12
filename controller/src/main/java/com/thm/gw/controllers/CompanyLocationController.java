@@ -23,7 +23,7 @@ public class CompanyLocationController {
         return ResponseEntity.ok(companyLocationService.getAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CompanyLocationDTO> getCompanyLocationById(@PathVariable Long id) {
         return ResponseEntity.ok(companyLocationService.getById(id));
     }
@@ -33,12 +33,12 @@ public class CompanyLocationController {
         return ResponseEntity.ok(companyLocationService.add(companyLocationForm));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CompanyLocationDTO> updateCompanyLocation(@PathVariable Long id, @RequestBody CompanyLocationForm companyLocationForm) {
         return ResponseEntity.ok(companyLocationService.update(id, companyLocationForm));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CompanyLocationDTO> deleteCompanyLocation(@PathVariable Long id) {
         return ResponseEntity.ok(companyLocationService.delete(id));
     }

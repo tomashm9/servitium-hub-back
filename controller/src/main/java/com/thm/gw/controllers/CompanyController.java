@@ -2,6 +2,7 @@ package com.thm.gw.controllers;
 
 import com.thm.gw.dtos.company.CompanyDTO;
 import com.thm.gw.dtos.company.PagedCompaniesDTO;
+import com.thm.gw.dtos.companyimage.CompanyImageDTO;
 import com.thm.gw.dtos.companylocation.CompanyLocationDTO;
 import com.thm.gw.forms.company.CompanyForm;
 import com.thm.gw.services.ICompanyService;
@@ -35,9 +36,14 @@ public class CompanyController {
         return ResponseEntity.ok(companies);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CompanyDTO> getCompanyById(@PathVariable Long id) {
         return ResponseEntity.ok(companyService.getCompanyById(id));
+    }
+
+    @GetMapping("/{companyId}/images")
+    public ResponseEntity<List<CompanyImageDTO>> getCompanyImages(@PathVariable Long companyId) {
+        return ResponseEntity.ok(companyService.getCompanyImages(companyId));
     }
 
     @GetMapping("/{companyId}/locations")

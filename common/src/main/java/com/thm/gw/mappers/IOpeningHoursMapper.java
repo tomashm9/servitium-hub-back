@@ -7,18 +7,40 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.time.LocalTime;
+
 @Mapper(componentModel = "spring")
 public interface IOpeningHoursMapper {
 
-    @Mapping(source = "company.id", target = "companyId")
+    @Mapping(source = "companyLocation.id", target = "companyLocationId")
+    @Mapping(source = "openingTime", target = "startTime")
+    @Mapping(source = "closingTime", target = "endTime")
     OpeningHoursDTO fromEntity(OpeningHours openingHours);
 
-    @Mapping(source = "companyId", target = "company.id")
+    default String mapOpeningTime(String openingTime) {
+        if ("Closed".equalsIgnoreCase(openingTime)) {
+            return null;
+        }
+        return openingTime;
+    }
+
+    @Mapping(source = "companyLocationId", target = "companyLocation.id")
+    @Mapping(source = "openingTime", target = "openingTime")
+    @Mapping(source = "closingTime", target = "closingTime")
     OpeningHours toEntity(OpeningHoursForm form);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(source = "companyId", target = "company.id")
+    @Mapping(source = "companyLocationId", target = "companyLocation.id")
+    @Mapping(source = "openingTime", target = "openingTime")
+    @Mapping(source = "closingTime", target = "closingTime")
     void updateEntityFromForm(OpeningHoursForm form, @MappingTarget OpeningHours openingHours);
+
+    default LocalTime mapTime(String time) {
+        if ("Closed".equals(time)) {
+            return null;
+        }
+        return LocalTime.parse(time);
+    }
 }

@@ -2,6 +2,7 @@ package com.thm.gw.services;
 
 import com.thm.gw.dtos.company.CompanyDTO;
 import com.thm.gw.dtos.company.PagedCompaniesDTO;
+import com.thm.gw.dtos.companyimage.CompanyImageDTO;
 import com.thm.gw.dtos.companylocation.CompanyLocationDTO;
 import com.thm.gw.forms.company.CompanyForm;
 
@@ -36,6 +37,13 @@ public interface ICompanyService {
      * @return List of locations for the company.
      */
     List<CompanyLocationDTO> getCompanyLocations(Long companyId);
+
+    /**
+     * Retrieves a list of images for a specific company.
+     * @param companyId The ID of the company.
+     * @return List of images for the company.
+     */
+    List<CompanyImageDTO> getCompanyImages(Long companyId);
 
     /**
      * Creates a new company in the system.

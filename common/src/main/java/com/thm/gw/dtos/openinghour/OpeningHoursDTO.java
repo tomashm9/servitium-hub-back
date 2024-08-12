@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public record OpeningHoursDTO(
         Long id,
-        Long companyId,
+        Long companyLocationId,
         String dayOfWeek,
         LocalTime startTime,
         LocalTime endTime

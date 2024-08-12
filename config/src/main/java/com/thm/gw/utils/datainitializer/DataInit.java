@@ -1,10 +1,6 @@
 package com.thm.gw.utils.datainitializer;
 
-import com.thm.gw.entities.Company;
-import com.thm.gw.entities.CompanyLocation;
-import com.thm.gw.entities.Country;
-import com.thm.gw.entities.City;
-import com.thm.gw.entities.PostalCode;
+import com.thm.gw.entities.*;
 import com.thm.gw.repositories.ICompanyRepository;
 import com.thm.gw.repositories.ICompanyLocationRepository;
 import com.thm.gw.repositories.ICityRepository;
@@ -106,16 +102,69 @@ public class DataInit implements CommandLineRunner {
                         .findFirst().orElse(null);
 
                 if (barberShop != null) {
-                    CompanyLocation barberShopLocation = new CompanyLocation(barberShop, belgium, brussels, postalCodeBrussels);
+                    CompanyLocation barberShopLocation = new CompanyLocation(
+                            "123 Main St",
+                            "Suite 4B",
+                            barberShop,
+                            belgium,
+                            brussels,
+                            postalCodeBrussels
+                    );
+
+                    List<OpeningHours> barberShopHours = getOpeningHours(barberShopLocation);
+
+                    barberShopLocation.setOpeningHours(barberShopHours);
+
                     companyLocationRepository.save(barberShopLocation);
                 }
 
                 if (restaurant != null) {
-                    CompanyLocation restaurantLocation = new CompanyLocation(restaurant, belgium, antwerp, postalCodeAntwerp);
+                    CompanyLocation restaurantLocation = new CompanyLocation(
+                            "456 Elm St",
+                            null,
+                            restaurant,
+                            belgium,
+                            antwerp,
+                            postalCodeAntwerp
+                    );
+
+                    List<OpeningHours> restaurantHours = getHours(restaurantLocation);
+
+                    restaurantLocation.setOpeningHours(restaurantHours);
+
                     companyLocationRepository.save(restaurantLocation);
                 }
             }
         }
     }
-}
 
+    private static List<OpeningHours> getHours(CompanyLocation restaurantLocation) {
+        List<OpeningHours> restaurantHours = List.of(
+                new OpeningHours("Monday", "11:00", "23:00"),
+                new OpeningHours("Tuesday", "11:00", "23:00"),
+                new OpeningHours("Wednesday", "11:00", "23:00"),
+                new OpeningHours("Thursday", "11:00", "23:00"),
+                new OpeningHours("Friday", "11:00", "23:00"),
+                new OpeningHours("Saturday", "11:00", "23:00"),
+                new OpeningHours("Sunday", "11:00", "22:00")
+        );
+
+        restaurantHours.forEach(hour -> hour.setCompanyLocation(restaurantLocation));
+        return restaurantHours;
+    }
+
+    private static List<OpeningHours> getOpeningHours(CompanyLocation barberShopLocation) {
+        List<OpeningHours> barberShopHours = List.of(
+                new OpeningHours("Monday", "09:00", "17:00"),
+                new OpeningHours("Tuesday", "09:00", "17:00"),
+                new OpeningHours("Wednesday", "09:00", "17:00"),
+                new OpeningHours("Thursday", "09:00", "17:00"),
+                new OpeningHours("Friday", "09:00", "17:00"),
+                new OpeningHours("Saturday", "09:00", "15:00"),
+                new OpeningHours("Sunday", "Closed", "Closed")
+        );
+
+        barberShopHours.forEach(hour -> hour.setCompanyLocation(barberShopLocation));
+        return barberShopHours;
+    }
+}

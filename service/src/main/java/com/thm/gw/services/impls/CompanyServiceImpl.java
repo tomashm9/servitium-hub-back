@@ -2,6 +2,7 @@ package com.thm.gw.services.impls;
 
 import com.thm.gw.dtos.company.CompanyDTO;
 import com.thm.gw.dtos.company.PagedCompaniesDTO;
+import com.thm.gw.dtos.companyimage.CompanyImageDTO;
 import com.thm.gw.dtos.companylocation.CompanyLocationDTO;
 import com.thm.gw.entities.Company;
 import com.thm.gw.entities.CompanyLocation;
@@ -11,6 +12,7 @@ import com.thm.gw.exceptions.company.CompanyNotFoundException;
 import com.thm.gw.forms.company.CompanyForm;
 import com.thm.gw.mappers.ICompanyLocationMapper;
 import com.thm.gw.mappers.ICompanyMapper;
+import com.thm.gw.repositories.ICompanyImageRepository;
 import com.thm.gw.repositories.ICompanyLocationRepository;
 import com.thm.gw.repositories.ICompanyRepository;
 import com.thm.gw.repositories.IOwnerRepository;
@@ -35,6 +37,7 @@ public class CompanyServiceImpl implements ICompanyService {
 
     private final ICompanyRepository companyRepository;
     private final ICompanyLocationRepository companyLocationRepository;
+    private final ICompanyImageRepository companyImageRepository;
     private final IOwnerRepository ownerRepository;
     private final ICompanyMapper companyMapper;
     private final ICompanyLocationMapper companyLocationMapper;
@@ -60,16 +63,37 @@ public class CompanyServiceImpl implements ICompanyService {
 
     @Override
     public CompanyDTO getCompanyById(Long id) {
-        return companyRepository.findById(id)
-                .map(companyMapper::fromEntity)
+        Company company = companyRepository.findById(id)
                 .orElseThrow(CompanyNotFoundException::new);
+
+        List<CompanyImageDTO> images = companyImageRepository.findByCompanyId(id)
+                .stream()
+                .map(image -> new CompanyImageDTO(image.getId(), image.getImageUrl()))
+                .collect(Collectors.toList());
+
+        return new CompanyDTO(
+                company.getId(),
+                company.getName(),
+                company.getDescription(),
+                company.getContactName(),
+                company.getContactPhoneNumber(),
+                company.getWebsiteUrl(),
+                companyLocationMapper.fromEntities(companyLocationRepository.findAllByCompanyId(id)),
+                images
+        );
     }
 
     @Override
     public List<CompanyLocationDTO> getCompanyLocations(Long companyId) {
         List<CompanyLocation> locations = companyLocationRepository.findAllByCompanyId(companyId);
-        return locations.stream()
-                .map(companyLocationMapper::fromEntity)
+        return companyLocationMapper.fromEntities(locations);
+    }
+
+    @Override
+    public List<CompanyImageDTO> getCompanyImages(Long companyId) {
+        return companyImageRepository.findByCompanyId(companyId)
+                .stream()
+                .map(image -> new CompanyImageDTO(image.getId(), image.getImageUrl()))
                 .collect(Collectors.toList());
     }
 

@@ -40,13 +40,10 @@ public class Company extends BaseEntity<Long> {
     private boolean isActive;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OpeningHours> openingHours = new HashSet<>();
+    private Set<CompanyLocation> companyLocations = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Owner> owners = new HashSet<>();
-
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<CompanyLocation> companyLocations = new HashSet<>();
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Service> services = new HashSet<>();
