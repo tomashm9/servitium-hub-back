@@ -23,7 +23,7 @@ public class CityController {
         return ResponseEntity.ok(cityService.getAllCities());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CityDTO> getCityById(@PathVariable Long id) {
         return ResponseEntity.ok(cityService.getCityById(id));
     }
@@ -35,13 +35,13 @@ public class CityController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @PutMapping("/{id}")
+    @PutMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CityDTO> updateCity(@PathVariable Long id, @RequestBody @Valid CityForm cityForm) {
         return ResponseEntity.ok(cityService.updateCity(id, cityForm));
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:^[0-9]+$}")
     public ResponseEntity<CityDTO> deleteCity(@PathVariable Long id) {
         return ResponseEntity.ok(cityService.deleteCity(id));
     }

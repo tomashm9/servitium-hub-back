@@ -28,4 +28,10 @@ public class PostalCode extends BaseEntity<Long> {
         this.code1 = code1;
         this.city = city;
     }
+
+    public PostalCode(String code1, String code2,City city) {
+        this.code1 = code1;
+        this.code2 = code2;
+        this.city = city;
+    }
 }

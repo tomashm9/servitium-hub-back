@@ -19,7 +19,7 @@ public class ServiceAvailabilityController {
 
     private final IServiceAvailabilityService serviceAvailabilityService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:^[0-9]+$}")
     public ResponseEntity<ServiceAvailabilityDTO> getById(@PathVariable Long id) {
         return ResponseEntity.ok(serviceAvailabilityService.getById(id));
     }
@@ -43,14 +43,14 @@ public class ServiceAvailabilityController {
         return ResponseEntity.ok(serviceAvailabilityService.create(serviceAvailabilityForm));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id:^[0-9]+$}")
     public ResponseEntity<ServiceAvailabilityDTO> update(
             @PathVariable Long id,
             @RequestBody @Valid ServiceAvailabilityForm serviceAvailabilityForm) {
         return ResponseEntity.ok(serviceAvailabilityService.update(id, serviceAvailabilityForm));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:^[0-9]+$}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         serviceAvailabilityService.delete(id);
         return ResponseEntity.noContent().build();

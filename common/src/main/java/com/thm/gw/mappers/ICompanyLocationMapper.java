@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ICompanyLocationMapper {
 
@@ -29,7 +31,14 @@ public interface ICompanyLocationMapper {
     @Mapping(target = "countryId", source = "country.id")
     @Mapping(target = "cityId", source = "city.id")
     @Mapping(target = "postalCodeId", source = "postalCode.id")
+    @Mapping(target = "addressLine1", source = "addressLine1")
+    @Mapping(target = "addressLine2", source = "addressLine2")
+    @Mapping(target = "city", source = "city")
+    @Mapping(target = "country", source = "country")
+    @Mapping(target = "postalCode", source = "postalCode")
     CompanyLocationDTO fromEntity(CompanyLocation companyLocation);
+
+    List<CompanyLocationDTO> fromEntities(List<CompanyLocation> companyLocations);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)

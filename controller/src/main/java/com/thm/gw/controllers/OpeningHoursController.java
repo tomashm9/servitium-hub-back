@@ -10,25 +10,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/opening-hours")
+@RequestMapping("/v1/opening-hours")
 @RequiredArgsConstructor
 public class OpeningHoursController {
 
     private final IOpeningHoursService openingHoursService;
 
-    @GetMapping("/company/{companyId}")
-    public ResponseEntity<List<OpeningHoursDTO>> getOpeningHoursByCompanyId(@PathVariable Long companyId) {
-        return ResponseEntity.ok(openingHoursService.getAllByCompanyId(companyId));
+    @GetMapping("/location/{companyLocationId}")
+    public ResponseEntity<List<OpeningHoursDTO>> getOpeningHoursByCompanyLocationId(@PathVariable Long companyLocationId) {
+        List<OpeningHoursDTO> openingHours = openingHoursService.getAllByCompanyLocationId(companyLocationId);
+        return ResponseEntity.ok(openingHours);
     }
 
     @PostMapping
     public ResponseEntity<OpeningHoursDTO> addOpeningHours(@RequestBody OpeningHoursForm form) {
-        return ResponseEntity.ok(openingHoursService.addOpeningHours(form));
+        OpeningHoursDTO createdOpeningHours = openingHoursService.addOpeningHours(form);
+        return ResponseEntity.ok(createdOpeningHours);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<OpeningHoursDTO> updateOpeningHours(@PathVariable Long id, @RequestBody OpeningHoursForm form) {
-        return ResponseEntity.ok(openingHoursService.updateOpeningHours(id, form));
+        OpeningHoursDTO updatedOpeningHours = openingHoursService.updateOpeningHours(id, form);
+        return ResponseEntity.ok(updatedOpeningHours);
     }
 
     @DeleteMapping("/{id}")

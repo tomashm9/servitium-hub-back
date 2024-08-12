@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/companies/{companyId}/images")
+@RequestMapping("/v1/companies/{companyId}/company-images")
 public class CompanyImageController {
 
     private final ICompanyImageService companyImageService;

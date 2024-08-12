@@ -1,10 +1,11 @@
 package com.thm.gw.exceptions.Service;
 
-import com.thm.gw.exceptions.NotFoundException;
-
-public class ServiceNotFoundException extends NotFoundException {
-
+public class ServiceNotFoundException extends RuntimeException {
     public ServiceNotFoundException() {
-        super("Service not found: ");
+        super("Service not found");
+    }
+
+    public ServiceNotFoundException(String message) {
+        super(message);
     }
 }
