@@ -13,7 +13,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface IServiceMapper {
 
-    @Mapping(target = "id", ignore= true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "name", source = "form.name")
@@ -30,13 +30,14 @@ public interface IServiceMapper {
             Company company
     );
 
-    @Mapping(target = "typeId", ignore = true)
-    @Mapping(target = "subtypeId", ignore = true)
+    @Mapping(target = "typeId", source = "type.id")
+    @Mapping(target = "subtypeId", source = "subtype.id")
+    @Mapping(target = "companyId", source = "company.id")
+    @Mapping(source = "createdAt", target = "createdAt")
     @Mapping(source = "active", target = "isActive")
-    @Mapping(source = "company.active", target = "companyId.active")
     ServiceDTO fromEntity(Service service);
 
-    @Mapping(target = "id", ignore= true)
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "company", ignore = true)
@@ -49,4 +50,3 @@ public interface IServiceMapper {
     @Mapping(target = "subtype", source = "serviceSubtype")
     void updateEntityFromForm(ServiceForm form, ServiceType serviceType, ServiceSubtype serviceSubtype, @MappingTarget Service service);
 }
-

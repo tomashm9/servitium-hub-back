@@ -1,9 +1,5 @@
 package com.thm.gw.dtos.service;
 
-import com.thm.gw.entities.Company;
-import com.thm.gw.entities.ServiceSubtype;
-import com.thm.gw.entities.ServiceType;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -15,7 +11,7 @@ public record ServiceDTO(
         int duration,
         LocalDateTime createdAt,
         Boolean isActive,
-        ServiceType typeId,
-        ServiceSubtype subtypeId,
-        Company companyId
+        Long typeId,
+        Long subtypeId,
+        Long companyId
 ) { }

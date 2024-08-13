@@ -4,6 +4,7 @@ import com.thm.gw.dtos.company.CompanyDTO;
 import com.thm.gw.dtos.company.PagedCompaniesDTO;
 import com.thm.gw.dtos.companyimage.CompanyImageDTO;
 import com.thm.gw.dtos.companylocation.CompanyLocationDTO;
+import com.thm.gw.dtos.service.ServiceDTO;
 import com.thm.gw.entities.Company;
 import com.thm.gw.entities.CompanyLocation;
 import com.thm.gw.entities.Owner;
@@ -12,6 +13,7 @@ import com.thm.gw.exceptions.company.CompanyNotFoundException;
 import com.thm.gw.forms.company.CompanyForm;
 import com.thm.gw.mappers.ICompanyLocationMapper;
 import com.thm.gw.mappers.ICompanyMapper;
+import com.thm.gw.mappers.IServiceMapper;
 import com.thm.gw.repositories.ICompanyImageRepository;
 import com.thm.gw.repositories.ICompanyLocationRepository;
 import com.thm.gw.repositories.ICompanyRepository;
@@ -41,6 +43,7 @@ public class CompanyServiceImpl implements ICompanyService {
     private final IOwnerRepository ownerRepository;
     private final ICompanyMapper companyMapper;
     private final ICompanyLocationMapper companyLocationMapper;
+    private final IServiceMapper serviceMapper;
     private final AuthServiceImpl authService;
 
     @Override
@@ -71,6 +74,10 @@ public class CompanyServiceImpl implements ICompanyService {
                 .map(image -> new CompanyImageDTO(image.getId(), image.getImageUrl()))
                 .collect(Collectors.toList());
 
+        List<ServiceDTO> services = company.getServices().stream()
+                .map(serviceMapper::fromEntity)
+                .collect(Collectors.toList());
+
         return new CompanyDTO(
                 company.getId(),
                 company.getName(),
@@ -79,9 +86,11 @@ public class CompanyServiceImpl implements ICompanyService {
                 company.getContactPhoneNumber(),
                 company.getWebsiteUrl(),
                 companyLocationMapper.fromEntities(companyLocationRepository.findAllByCompanyId(id)),
-                images
+                images,
+                services
         );
     }
+
 
     @Override
     public List<CompanyLocationDTO> getCompanyLocations(Long companyId) {
