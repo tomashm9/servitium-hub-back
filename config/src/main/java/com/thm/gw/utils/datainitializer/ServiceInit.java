@@ -36,7 +36,7 @@ public class ServiceInit implements CommandLineRunner {
     private void initializeServiceTypesAndSubtypes() {
         if (serviceTypeRepository.count() == 0) {
             ServiceType accommodation = new ServiceType("Accommodation");
-            ServiceType restaurantsAndCafes = new ServiceType("Restaurants and Coffees");
+            ServiceType restaurantsAndCafes = new ServiceType("Restaurants and Cafes");
             ServiceType beautyAndWellness = new ServiceType("Beauty and Wellness");
             ServiceType eventsAndEntertainment = new ServiceType("Events and Entertainment");
             ServiceType transport = new ServiceType("Transport");
@@ -83,8 +83,8 @@ public class ServiceInit implements CommandLineRunner {
     private void initializeCompanies() {
         if (companyRepository.count() == 0) {
             List<Company> companies = List.of(
-                    new Company("Barber Shop"),
-                    new Company("Restaurant")
+                    new Company("Neighborhood Barber Shop"),
+                    new Company("World Flavors Restaurant")
             );
             companyRepository.saveAll(companies);
         }
@@ -97,8 +97,12 @@ public class ServiceInit implements CommandLineRunner {
             List<ServiceSubtype> serviceSubtypes = serviceSubtypeRepository.findAll();
 
             if (!companies.isEmpty() && !serviceTypes.isEmpty() && !serviceSubtypes.isEmpty()) {
-                Company barberShop = companies.get(0);
-                Company restaurant = companies.get(1);
+                Company barberShop = companies.stream()
+                        .filter(c -> c.getName().equals("Neighborhood Barber Shop"))
+                        .findFirst().orElse(null);
+                Company restaurant = companies.stream()
+                        .filter(c -> c.getName().equals("World Flavors Restaurant"))
+                        .findFirst().orElse(null);
 
                 ServiceType beautyAndWellness = serviceTypes.stream()
                         .filter(t -> t.getName().equals("Beauty and Wellness"))
@@ -113,8 +117,11 @@ public class ServiceInit implements CommandLineRunner {
                 ServiceSubtype shaving = serviceSubtypes.stream()
                         .filter(st -> st.getName().equals("Barbers"))
                         .findFirst().orElse(null);
-                ServiceSubtype meal = serviceSubtypes.stream()
+                ServiceSubtype tableReservation = serviceSubtypes.stream()
                         .filter(st -> st.getName().equals("Restaurant table reservations"))
+                        .findFirst().orElse(null);
+                ServiceSubtype catering = serviceSubtypes.stream()
+                        .filter(st -> st.getName().equals("Catering services"))
                         .findFirst().orElse(null);
 
                 if (beautyAndWellness != null && haircut != null && shaving != null) {
@@ -132,7 +139,7 @@ public class ServiceInit implements CommandLineRunner {
                             "Shaving",
                             "Classic shaving",
                             new BigDecimal("10.00"),
-                            10,
+                            15,
                             beautyAndWellness,
                             shaving,
                             barberShop
@@ -141,18 +148,18 @@ public class ServiceInit implements CommandLineRunner {
                     serviceRepository.saveAll(List.of(haircutService, shavingService));
                 }
 
-                if (dining != null && meal != null) {
-                    Service tableReservation = new Service(
+                if (dining != null && tableReservation != null && catering != null) {
+                    Service tableReservationService = new Service(
                             "Table Reservation",
                             "Reserve a table for dining",
                             new BigDecimal("0.00"),
                             0,
                             dining,
-                            meal,
+                            tableReservation,
                             restaurant
                     );
 
-                    serviceRepository.save(tableReservation);
+                    serviceRepository.saveAll(List.of(tableReservationService));
                 }
             }
         }

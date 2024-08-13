@@ -28,6 +28,7 @@ public interface ICompanyMapper {
     Company toEntity(CompanyForm form);
 
     @Mapping(source = "companyLocations", target = "locations")
+    @Mapping(target = "services", source = "services")
     CompanyDTO fromEntity(Company company);
 
     @Mapping(target = "id", ignore = true)
